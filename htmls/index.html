@@ -9,6 +9,11 @@
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
         <style>
+            .feeds li{
+                margin-bottom:10px;
+            }
+        </style>
+        <style>
         
             /* GLOBAL STYLES
             -------------------------------------------------- */
@@ -17,6 +22,7 @@
             body {
               padding-bottom: 40px;
               color: #5a5a5a;
+              background:#F5F5F5;
             }
         
         
@@ -266,13 +272,13 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                     </button>
-                    <a class="brand" href="#">微博听</a>
+                    <a class="brand" href="/">微博听</a>
                     <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
                     <% if(user){ %>
                     <div class="nav-collapse collapse">
                       <ul class="nav">
-                        <li><a href="#">我的微博</a></li>
-                        <li><a href="#">公共微博</a></li>
+                        <li node-type="nav_li"><a href="#home" node-type="home_line">我的微博</a></li>
+                        <li node-type="nav_li"><a href="#public" node-type="public_line">公共微博</a></li>
                         <li><a href="/logout">退出</a></li>
                       </ul>
                     </div><!--/.nav-collapse -->
@@ -324,11 +330,21 @@
             <div class="container marketing">
                 <% if(user){ %>
                 <div style="padding-top:100px;">
-                    <img src="<%= user.profile_image_url %>"/>
-                    <a href="<%= user.t_url %>" target="_blank">@<%= user.screen_name %></a>
-                    <hr/>
+                    <blockquote>
+                        <p>
+                            <a href="<%= user.t_url %>" target="_blank">
+                                <img src="<%= user.profile_image_url %>" class="img-circle"/>
+                            </a>
+                        </p>
+                        <small><%= user.screen_name +' '+ user.location %></small>
+                    </blockquote>
+                    <div class="btn-group">
+                        <button class="btn btn-success">开始</button>
+                        <button class="btn btn-danger disabled">暂停</button>
+                    </div>
                 </div>
-                <!-- <pre><code>'<%= JSON.stringify(user,null,' ') %>'</code></pre> -->
+                <hr/>
+                <div node-type="time_line"></div>
                 <% } %>
                 <!-- FOOTER -->
                 <footer>
