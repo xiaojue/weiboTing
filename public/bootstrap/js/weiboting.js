@@ -81,6 +81,9 @@
 		try {
 			var speech = new SpeechSynthesisUtterance(msg);
 			speech.lang = "zh-CN";
+            speak['volume'] = 44;
+            speak['rate'] = 1;
+            speak['pitch'] = 1;
 			speechSynthesis.speak(speech);
 		} catch(e) {
 			alert(e);
