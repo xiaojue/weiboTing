@@ -79,11 +79,12 @@
 	function play(item) {
         var msg = contentWrap.find('li:eq('+item+')').text();
 		try {
-			var speech = new SpeechSynthesisUtterance(msg);
+			var speech = new SpeechSynthesisUtterance();
+			speech.text = msg;
 			speech.lang = "zh-CN";
-            speak['volume'] = 44;
-            speak['rate'] = 1;
-            speak['pitch'] = 1;
+			speech.voice = speechSynthesis.getVoices()[44];
+            		speech['rate'] = 0.4;
+            		speech['pitch'] = 2;
 			speechSynthesis.speak(speech);
 		} catch(e) {
 			alert(e);
