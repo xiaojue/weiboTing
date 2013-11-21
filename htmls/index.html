@@ -1,16 +1,52 @@
+<!doctype html>
 <html>
     <head>
         <title>weibo ting</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="weiboting">
+        <meta name="author" content="xiaojue">
+        <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+          body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+          }
+        </style>
+        <link href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     </head>
     <body>
-        <% if(user){ %>
-        <img src="<%= user.profile_image_url %>"/>
-        <a href="<%= user.t_url %>" target="_blank">@<%= user.screen_name %></a>
-        <a href="/logout">Logout</a>
-        <hr/>
-        <pre><code>'<%= JSON.stringify(user,null,' ') %>'</code></pre>
-        <% }else{ %> 
-            Login with <a href="/login?type=weibo">weibo</a>
-        <% } %>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="brand" href="#">微博听</a>
+              <div class="nav-collapse collapse">
+                <ul class="nav">
+                  <li><a href="#">我的微博</a></li>
+                  <li><a href="#">公共微博</a></li>
+                </ul>
+              </div><!--/.nav-collapse -->
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+            <% if(user){ %>
+            <img src="<%= user.profile_image_url %>"/>
+            <a href="<%= user.t_url %>" target="_blank">@<%= user.screen_name %></a>
+            <a href="/logout">Logout</a>
+            <hr/>
+            <!-- <pre><code>'<%= JSON.stringify(user,null,' ') %>'</code></pre> -->
+            <% }else{ %> 
+                Login with <a href="/login?type=weibo">weibo</a>
+            <% } %>
+        </div>
+        <script src="/bootstrap/js/jquery-1.9.1.min.js"></script>
+        <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/bootstrap/js/weiboting.js"></script>
     </body>
 </html>

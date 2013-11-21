@@ -21,6 +21,8 @@ var oauth_callback_url = 'http://weiboting.me/oauth/callback';
 
 weibo.init('weibo', appkey, secret, oauth_callback_url);
 
+app.set('weibo',weibo);
+
 app.use(weibo.oauth({
 	loginPath: '/login',
 	logoutPath: '/logout',

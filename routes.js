@@ -4,6 +4,8 @@ module.exports = function(app) {
 
 	app.get('/', index.index);
 	app.get('/index', index.index);
+	app.get('/home_list', index.home_list);
+	app.get('/public_list', index.public_list);
 
 	app.get('*', error.notFound);
 
