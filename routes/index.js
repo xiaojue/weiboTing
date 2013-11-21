@@ -1,5 +1,3 @@
-var appkey = '2008689977';
-
 function extend(o,p){
     for(var i in o){
         p[i] = o[i];
