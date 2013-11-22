@@ -71,7 +71,7 @@
 	function appendContent(items) {
 		var html = '<ol class="feeds">';
 		items.forEach(function(item) {
-			html += '<li><span node-type="text"><span class="text-info">' + item.user.name + '</span> 说: ' + fixText(item.text) + '<span><button node-type="add_one" class="btn btn-mini">加入播放</button></li>';
+			html += '<li><span node-type="text"><span class="text-info">' + item.user.name + '</span> 说: ' + fixText(item.text) + '</span><button node-type="add_one" class="btn btn-mini">加入播放</button></li>';
 		});
 		html += '</ol>';
 		contentWrap.html(html);
@@ -205,8 +205,10 @@
 			});
 		});
 
-		contentWrap.on('click','[node-type=add_one]',function(){
-            		myspeaker.add($(this).prev().text());
+		contentWrap.on('click','[node-type=add_one]',function(e){
+var text = $(e.target).parent().find('[node-type=text]').text();
+	alert(text);
+            		myspeaker.add(text);
         	});
 
 		$('[node-type=cn]').click(function(){
