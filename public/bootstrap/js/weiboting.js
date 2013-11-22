@@ -204,7 +204,7 @@
 				myspeaker.add(text);
 			});
 		});
-		$('[node-type=add_one]').click(function(){
+		$('[node-type=add_one]').live(function(){
             myspeaker.add($(this).prev().text());
         });
 
