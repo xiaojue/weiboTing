@@ -37,7 +37,7 @@
 			$.ajax({
 				url: url,
 				data: {
-					count: 4,
+					count: 20,
 					feature: 1,
 					page: page
 				},
