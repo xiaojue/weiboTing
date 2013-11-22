@@ -71,7 +71,7 @@
 	function appendContent(items) {
 		var html = '<ol class="feeds">';
 		items.forEach(function(item) {
-			html += '<li><span class="text-info">' + item.user.name + '</span> 说: ' + fixText(item.text) + '</li>';
+			html += '<li><span node-type="text"><span class="text-info">' + item.user.name + '</span> 说: ' + fixText(item.text) + '<span><button node-type="add_one" class="btn btn-mini">加入播放</button></li>';
 		});
 		html += '</ol>';
 		contentWrap.html(html);
@@ -178,7 +178,7 @@
 			return this;
 		},
 		set: function(options) {
-			extend(this.speech,options)
+			extend(this.speech,options);
 			return this;
 		},
 		clear: function() {
@@ -199,11 +199,14 @@
 			}
 		});
 		$('[node-type=add_all]').click(function() {
-			contentWrap.find('li').each(function(index,item) {
+			contentWrap.find('[node-type=text]').each(function(index,item) {
 				var text = $(item).text();
 				myspeaker.add(text);
 			});
 		});
+		$('[node-type=add_one]').click(function(){
+            myspeaker.add($(this).prev().text());
+        });
 
 		$('[node-type=cn]').click(function(){
 			myspeaker.set({lang:'zh-CN'});
