@@ -95,14 +95,6 @@
 	$('[node-type=start]').addClass('active');
 	$('[node-type=cn]').addClass('active');
 
-	$('[node-type=con_bar] button').bind('click touchstart', function() {
-		$('[node-type=con_bar] button').removeClass('active');
-		$(this).addClass('active');
-	});
-	$('[node-type=lang_bar] button').bind('click touchstart', function() {
-		$('[node-type=lang_bar] button').removeClass('active');
-		$(this).addClass('active');
-	});
 
 	function events() {
 		this.map = {};
