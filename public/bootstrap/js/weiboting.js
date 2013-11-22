@@ -28,13 +28,16 @@
 
 	var contentWrap = $('[node-type=time_line]');
 
+	contentWrap.html('正在努力加载中...');
+
 	function get_line(url, page, cb) {
 		if (!isLoading) {
 			isLoading = true;
+			contentWrap.html('正在努力加载中...');
 			$.ajax({
 				url: url,
 				data: {
-					count: 20,
+					count: 4,
 					feature: 1,
 					page: page
 				},
@@ -92,9 +95,7 @@
 
 	$(window).bind('hashchange', bind);
 
-	$('[node-type=start]').addClass('active');
 	$('[node-type=cn]').addClass('active');
-
 
 	function events() {
 		this.map = {};
@@ -126,6 +127,13 @@
 			alert('您当前的环境不支持微博听,请使用ios设备浏览本站');
 		}
 		this.speeks = [];
+		this.options = {
+			lang: 'zh-CN',
+			volume: 44,
+			rate: 0.5,
+			pitch: 0.8
+		};
+		this.speech = new SpeechSynthesisUtterance();
 		this.events = new events();
 	}
 
@@ -133,66 +141,44 @@
 		constructor: weiboTspeech,
 		play: function() {
 			if (!speechSynthesis.speaking && this.speeks.length) {
-				var speech = this.speeks.unshift();
-				speechSynthesis.speak(speech);
+				var msg = this.speeks.shift();
+				this.speech.text = msg;
+				speechSynthesis.speak(this.speech);
 				this.events.trigger('play');
 			}
 		},
 		add: function(msg) {
-			var speech = new SpeechSynthesisUtterance(msg);
-			speech = extend(speech, this.options);
-			speech.text = msg;
-			this.speeks.push(speech);
+			this.speeks.push(msg);
 			this.events.trigger('add');
 			return this;
 		},
-		cancel: function() {
-			speechSynthesis.cancel();
-			return this;
-		},
-		pause: function() {
-			speechSynthesis.pause();
-			return this;
-		},
-		resume: function() {
-			speechSynthesis.resume();
-			return this;
-		},
 		init: function() {
-			this.options = {
-				lang: 'zh-CN',
-				volume: 44,
-				rate: 0.4,
-				pitch: 1
-			};
+			this.set(this.options);
+			this.bindEvents(this.speech);
 			return this;
 		},
-		bindEvents: function() {
+		bindEvents: function(speech) {
 			var self = this;
-			speechSynthesis.start = function() {
+			speech.onstart = function() {
 				self.events.trigger('start', self);
 			};
-			speechSynthesis.end = function() {
+			speech.onend = function() {
 				self.play();
 				self.events.trigger('end', self);
 			};
-			speechSynthesis.error = function(e) {
+			speech.onerror = function(e) {
 				self.events.trigger('error', self);
 			};
-			speechSynthesis.pause = function() {
+			speech.onpause = function() {
 				self.events.trigger('pause', self);
 			};
-			speechSynthesis.resume = function() {
+			speech.onresume = function() {
 				self.events.trigger('resume', self);
 			};
 			return this;
 		},
 		set: function(options) {
-			var self = this;
-			this.speeks.forEach(function(speek) {
-				extend(self.options, options);
-				extend(speek, self.options);
-			});
+			extend(this.speech,options)
 			return this;
 		},
 		clear: function() {
@@ -202,26 +188,31 @@
 	};
 
 	var myspeaker = new weiboTspeech();
+	myspeaker.init();
 
 	if (myspeaker.supportSpeech) {
 		$('[node-type=start]').click(function() {
-			if (myspeaker.speaks.length) {
+			if (myspeaker.speeks.length) {
 				myspeaker.play();
 			} else {
 				alert('请向播放列表添加微博');
 			}
 		});
-		$('[node-type=stop]').click(function() {
-			myspeaker.pause();
-		});
-		$('[node-type=abort]').click(function() {
-			myspeaker.cancel();
-		});
 		$('[node-type=add_all]').click(function() {
-			contentWrap.find('li').each(function(item) {
+			contentWrap.find('li').each(function(index,item) {
 				var text = $(item).text();
-				myspeaker.add(item);
+				myspeaker.add(text);
 			});
+		});
+
+		$('[node-type=cn]').click(function(){
+			myspeaker.set({lang:'zh-CN'});
+		});
+		$('[node-type=hk]').click(function(){
+			myspeaker.set({lang:'zh-HK'});
+		});
+		$('[node-type=tw]').click(function(){
+			myspeaker.set({lang:'zh-TW'});
 		});
 
 		function showNum() {
@@ -230,7 +221,6 @@
 
 		myspeaker.events.on('add', showNum);
 		myspeaker.events.on('end', showNum);
-		myspeaker.events.on('cancel', showNum);
 	}
 
 })();
