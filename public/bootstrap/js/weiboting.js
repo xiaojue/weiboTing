@@ -205,9 +205,9 @@
 			});
 		});
 
-		contentWrap.on('[node-type=add_one]','click',function(){
-            myspeaker.add($(this).prev().text());
-        });
+		contentWrap.on('click','[node-type=add_one]',function(){
+            		myspeaker.add($(this).prev().text());
+        	});
 
 		$('[node-type=cn]').click(function(){
 			myspeaker.set({lang:'zh-CN'});
