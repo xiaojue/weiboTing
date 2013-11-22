@@ -207,7 +207,6 @@
 
 		contentWrap.on('click','[node-type=add_one]',function(e){
 var text = $(e.target).parent().find('[node-type=text]').text();
-	alert(text);
             		myspeaker.add(text);
         	});
 
