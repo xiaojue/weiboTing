@@ -9,7 +9,7 @@ exports.index = function(req, res, next) {
 	var user = req.session.oauthUser;
 	var ua = req.headers['user-agent'].toLowerCase();
 	var isIosMobile;
-	if (ua.indexOf('AppleWebKit') > - 1 && (ua.indexOf('ipad') > - 1 || ua.indexOf('iphone') > - 1)) {
+	if (ua.indexOf('applewebkit') > - 1 && (ua.indexOf('ipad') > - 1 || ua.indexOf('iphone') > - 1)) {
 		isIosMobile = true;
 	}
 	if (isIosMobile) {

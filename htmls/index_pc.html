@@ -78,7 +78,7 @@
         
             /* Carousel base class */
             .carousel {
-              margin-bottom: 60px;
+              margin-bottom: 0px;
             }
         
             .carousel .container {
@@ -147,14 +147,19 @@
             ------------------------- */
         
             .featurette-divider {
-              margin: 10px 0; /* Space out the Bootstrap <hr> more */
+              margin: 50px 0; /* Space out the Bootstrap <hr> more */
             }
             .featurette {
-              padding-top: 50px; /* Vertically center images part 1: add padding above and below text. */
+              margin-top:30px;
+              border:#999 solid 1px;
+              padding: 50px 20px 20px 20px; /* Vertically center images part 1: add padding above and below text. */
               overflow: hidden; /* Vertically center images part 2: clear their floats. */
+              background:#fff;
             }
             .featurette-image {
-              margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+              margin-top: -30px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+              height:300px;
+              width:auto;
             }
         
             /* Give some space on the sides of the floated elements so text doesn't run right into it. */
@@ -255,6 +260,9 @@
                 line-height: 1.5;
               }
         
+            }
+            footer {
+                margin-top:50px;
             }
             </style>
     </head>
@@ -360,13 +368,13 @@
                 <hr/>
                 <div node-type="time_line"></div>
                 <% }else{ %>
-                <hr class="featurette-divider" id="more1"/>
-                <div class="featurette">
+                <div class="featurette" id="more1">
+                    <img src="/bootstrap/img/2.jpg" class="featurette-image pull-right img-rounded">
                     <h2>微博听暂时只支持使用iphone或者ipad访问</h2>
                     <p class="lead">使用iphone或ipad的浏览器访问本站地址，并添加到主屏幕，即可快速享受微博听的服务。</p>
                 </div>
-                <hr class="featurette-divider" id="more2"/>
-                <div class="featurette">
+                <div class="featurette" id="more2">
+                    <img src="/bootstrap/img/1.jpg" class="featurette-image pull-left img-rounded">
                     <h2>关于微博听</h2>
                     <p class="lead">微博听目前只是一种新奇的微博阅读体验，更多好玩的想法和功能正在逐步完善。希望大家多多支持。</p>
                 </div>
