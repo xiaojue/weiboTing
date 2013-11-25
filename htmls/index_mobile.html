@@ -50,6 +50,9 @@
             .content li{
                 margin-bottom:10px;
             }
+            .login { 
+                text-align:center;
+            }
         </style>
         <div class="container">
             <% if(user){ %>
@@ -78,7 +81,7 @@
                 <div class="content" node-type="time_line"></div> 
             </div>
             <% }else{ %>
-            <div class="login">
+            <div class="mobile-con login">
                 <a href="/login?type=weibo"><img src="/bootstrap/img/login.png"></a>
                 <p>使用微博帐号登陆</p>
             </div>
