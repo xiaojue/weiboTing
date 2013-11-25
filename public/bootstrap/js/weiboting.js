@@ -178,7 +178,7 @@
 			return this;
 		},
 		set: function(options) {
-			extend(this.speech,options);
+			extend(this.speech, options);
 			return this;
 		},
 		clear: function() {
@@ -191,33 +191,39 @@
 	myspeaker.init();
 
 	if (myspeaker.supportSpeech) {
-		$('[node-type=start]').click(function() {
+		$('[node-type=start]').bind('touchstart',function() {
 			if (myspeaker.speeks.length) {
 				myspeaker.play();
 			} else {
 				alert('请向播放列表添加微博');
 			}
 		});
-		$('[node-type=add_all]').click(function() {
-			contentWrap.find('[node-type=text]').each(function(index,item) {
+		$('[node-type=add_all]').bind('touchstart',function() {
+			contentWrap.find('[node-type=text]').each(function(index, item) {
 				var text = $(item).text();
 				myspeaker.add(text);
 			});
 		});
 
-		contentWrap.on('click','[node-type=add_one]',function(e){
-var text = $(e.target).parent().find('[node-type=text]').text();
-            		myspeaker.add(text);
-        	});
+		contentWrap.on('touchstart', '[node-type=add_one]', function(e) {
+			var text = $(e.target).parent().find('[node-type=text]').text();
+			myspeaker.add(text);
+		});
 
-		$('[node-type=cn]').click(function(){
-			myspeaker.set({lang:'zh-CN'});
+		$('[node-type=cn]').bind('touchstart', function() {
+			myspeaker.set({
+				lang: 'zh-CN'
+			});
 		});
-		$('[node-type=hk]').click(function(){
-			myspeaker.set({lang:'zh-HK'});
+		$('[node-type=hk]').bind('touchstart', function() {
+			myspeaker.set({
+				lang: 'zh-HK'
+			});
 		});
-		$('[node-type=tw]').click(function(){
-			myspeaker.set({lang:'zh-TW'});
+		$('[node-type=tw]').bind('touchstart', function() {
+			myspeaker.set({
+				lang: 'zh-TW'
+			});
 		});
 
 		function showNum() {
