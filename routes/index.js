@@ -1,15 +1,26 @@
-function extend(o,p){
-    for(var i in o){
-        p[i] = o[i];
-    }
-    return p;
+function extend(o, p) {
+	for (var i in o) {
+		p[i] = o[i];
+	}
+	return p;
 }
 
 exports.index = function(req, res, next) {
 	var user = req.session.oauthUser;
-	res.render('index', {
-		user: user
-	});
+	var ua = req.headers['user-agent'].toLowerCase();
+	var isIosMobile;
+	if (ua.indexOf('AppleWebKit') > - 1 && (ua.indexOf('ipad') > - 1 || ua.indexOf('iphone') > - 1)) {
+		isIosMobile = true;
+	}
+	if (isIosMobile) {
+		res.render('index_mobile', {
+            user:user
+        });
+	} else {
+		res.render('index_pc', {
+			user: user
+		});
+	}
 };
 
 exports.public_list = function(req, res, next) {
@@ -17,7 +28,8 @@ exports.public_list = function(req, res, next) {
 	if (user) {
 		var weibo = req.app.get('weibo');
 		var params = req.query;
-		var cursor = extend({},params);
+		var cursor = extend({},
+		params);
 		weibo.public_timeline({
 			blogtype: 'weibo',
 			access_token: user.access_token
@@ -38,7 +50,8 @@ exports.home_list = function(req, res, next) {
 	if (user) {
 		var weibo = req.app.get('weibo');
 		var params = req.query;
-		var cursor = extend({},params);
+		var cursor = extend({},
+		params);
 		weibo.home_timeline({
 			blogtype: 'weibo',
 			access_token: user.access_token

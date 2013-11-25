@@ -6,6 +6,7 @@
         <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi">
         <meta name="description" content="weiboting">
         <meta name="author" content="xiaojue">
+        <link rel="shortcut icon" type="image/x-icon" href="icon/favicon.ico" />
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
         <style>
@@ -146,10 +147,10 @@
             ------------------------- */
         
             .featurette-divider {
-              margin: 80px 0; /* Space out the Bootstrap <hr> more */
+              margin: 10px 0; /* Space out the Bootstrap <hr> more */
             }
             .featurette {
-              padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+              padding-top: 50px; /* Vertically center images part 1: add padding above and below text. */
               overflow: hidden; /* Vertically center images part 2: clear their floats. */
             }
             .featurette-image {
@@ -275,17 +276,22 @@
                     <a class="brand" href="/">微博听</a>
                     <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
                     <% if(user){ %>
+                    <!--
                     <div class="nav-collapse collapse">
                       <ul class="nav">
                         <li node-type="nav_li"><a href="#home" node-type="home_line">我的微博</a></li>
                         <li node-type="nav_li"><a href="#public" node-type="public_line">公共微博</a></li>
                         <li><a href="/logout">退出</a></li>
                       </ul>
-                    </div><!--/.nav-collapse -->
+                    </div>
+                    -->
+                  <!--/.nav-collapse -->
                     <% }else{ %>
                     <div class="nav-collapse collapse">
                       <ul class="nav">
-                        <li><a href="/login?type=weibo">使用新浪微博登陆</a></li>
+                          <!-- <li><a href="/login?type=weibo">使用新浪微博登陆</a></li> -->
+                          <li><a href="#more1">如何使用</a></li>
+                          <li><a href="#more2">关于我们</a></li>
                       </ul>
                     </div>
                     <% } %>
@@ -307,7 +313,7 @@
                     <div class="carousel-caption">
                       <h1>微博Ting 阅读你自己的微博</h1>
                       <p class="lead">公共频道，feed流阅读，搞笑的siri帮你开心</p>
-                      <a class="btn btn-large btn-primary" href="/login?type=weibo">使用微博登陆</a>
+                      <a class="btn btn-large btn-primary" href="#more1">了解更多</a> 
                     </div>
                   </div>
                 </div>
@@ -315,9 +321,9 @@
                   <img src="bootstrap/img/slide/02.jpg" alt="">
                   <div class="container">
                     <div class="carousel-caption">
-                      <h1>每天都有精彩笑话逗你开心<h1>
+                      <h1>微博听，新的微博阅读体验<h1>
                       <p class="lead">精品段子，siri演绎不同的乐趣</p>
-                      <a class="btn btn-large btn-primary" href="/login?type=weibo">使用微博登陆</a>
+                      <a class="btn btn-large btn-primary" href="#more2">了解更多</a> 
                     </div>
                   </div>
                 </div>
@@ -326,7 +332,7 @@
               <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
             </div><!-- /.carousel -->
             <% } %>
-
+            
             <div class="container marketing">
                 <% if(user){ %>
                 <div style="padding-top:100px;">
@@ -353,7 +359,19 @@
                 </div>
                 <hr/>
                 <div node-type="time_line"></div>
+                <% }else{ %>
+                <hr class="featurette-divider" id="more1"/>
+                <div class="featurette">
+                    <h2>微博听暂时只支持使用iphone或者ipad访问</h2>
+                    <p class="lead">使用iphone或ipad的浏览器访问本站地址，并添加到主屏幕，即可快速享受微博听的服务。</p>
+                </div>
+                <hr class="featurette-divider" id="more2"/>
+                <div class="featurette">
+                    <h2>关于微博听</h2>
+                    <p class="lead">微博听目前只是一种新奇的微博阅读体验，更多好玩的想法和功能正在逐步完善。希望大家多多支持。</p>
+                </div>
                 <% } %>
+                
                 <!-- FOOTER -->
                 <footer>
                   <p class="pull-right"><a href="#">返回顶部</a></p>
@@ -371,7 +389,8 @@
                 })
               }(window.jQuery)
             </script>
-            <% } %>
+            <% }else{  %>
             <script src="/bootstrap/js/weiboting.js"></script>
+            <% } %>
     </body>
 </html>
