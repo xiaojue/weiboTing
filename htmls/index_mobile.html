@@ -71,13 +71,14 @@
                     <button node-type="tw" class="btn btn-info btn-mini">TW</button>
                     <button node-type="hk" class="btn btn-info btn-mini">HK</button>
                 </div>
-                <hr/>
                 <div class="btn-group" node-type="con_bar">
-                    <button node-type="start" class="btn btn-success">开始</button>
+                    <button node-type="start" class="btn btn-mini"><i class="icon-play"></i></button>
+                    <button node-type="stop" class="btn btn-mini"><i class="icon-pause"></i></button>
+                    <button class="btn btn-mini" node-type="add_all"><i class="icon-chevron-up"></i></button>
+                    <button class="btn btn-mini" node-type="remove_all"><i class="icon-chevron-down"></i></button>
                 </div>
                 <hr/>
                 <p>当前播放列表共有:<span class="text-warning" node-type="count">0</span>条</p>
-                <p><button class="btn btn-mini" node-type="add_all">全选</button></p>
                 <div class="content" node-type="time_line"></div> 
             </div>
             <% }else{ %>

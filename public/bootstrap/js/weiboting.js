@@ -71,7 +71,7 @@
 	function appendContent(items) {
 		var html = '<ol class="feeds">';
 		items.forEach(function(item) {
-			html += '<li><span node-type="text"><span class="text-info">' + item.user.name + '</span> 说: ' + fixText(item.text) + '</span><button node-type="add_one" class="btn btn-mini">加入播放</button></li>';
+			html += '<li><span node-type="text"><span class="text-info">' + item.user.name + '</span> 说: ' + fixText(item.text) + '</span><button node-type="add_one" class="btn btn-mini"><i class="icon-ok"></i></button></li>';
 		});
 		html += '</ol>';
 		contentWrap.html(html);
@@ -96,6 +96,7 @@
 	$(window).bind('hashchange', bind);
 
 	$('[node-type=cn]').addClass('active');
+	$('[node-type=stop]').addClass('disabled');
 
 	function events() {
 		this.map = {};
@@ -152,6 +153,15 @@
 			this.events.trigger('add');
 			return this;
 		},
+        cancel:function(){
+            if(speechSynthesis.paused){
+                speechSynthesis.resume();    
+            }
+            speechSynthesis.cancel();
+        },
+        stop:function(){
+            speechSynthesis.pause();  
+        },
 		init: function() {
 			this.set(this.options);
 			this.bindEvents(this.speech);
@@ -165,6 +175,7 @@
 			speech.onend = function() {
 				self.play();
 				self.events.trigger('end', self);
+                if(self.speeks.length === 0) self.events.trigger('allend');
 			};
 			speech.onerror = function(e) {
 				self.events.trigger('error', self);
@@ -183,7 +194,7 @@
 		},
 		clear: function() {
 			this.cancel();
-			this.speaks = [];
+			this.speeks = [];
 		}
 	};
 
@@ -191,39 +202,64 @@
 	myspeaker.init();
 
 	if (myspeaker.supportSpeech) {
-		$('[node-type=start]').bind('touchstart',function() {
-			if (myspeaker.speeks.length) {
+		$('[node-type=start]').bind('click', function() {
+			if (myspeaker.speeks.length && !speechSynthesis.paused) {
 				myspeaker.play();
-			} else {
-				alert('请向播放列表添加微博');
+                $(this).parent().find('button').removeClass('disabled');
+                $(this).addClass('disabled');
+                return;
 			}
+
+            if(speechSynthesis.paused){
+                speechSynthesis.resume();    
+                $(this).parent().find('button').removeClass('disabled');
+                $(this).addClass('disabled');
+                return;
+            }
 		});
-		$('[node-type=add_all]').bind('touchstart',function() {
+		$('[node-type=stop]').bind('click', function() {
+            if(speechSynthesis.speaking){
+                myspeaker.stop();
+                $(this).parent().find('button').removeClass('disabled');
+                $(this).addClass('disabled');
+            }
+        });
+		$('[node-type=remove_all]').bind('click', function() {
+            myspeaker.speeks.length = 0;
+            showNum();
+        });
+		$('[node-type=add_all]').bind('click', function() {
 			contentWrap.find('[node-type=text]').each(function(index, item) {
 				var text = $(item).text();
 				myspeaker.add(text);
 			});
 		});
 
-		contentWrap.on('touchstart', '[node-type=add_one]', function(e) {
+		contentWrap.on('click', '[node-type=add_one]', function(e) {
 			var text = $(e.target).parent().find('[node-type=text]').text();
 			myspeaker.add(text);
 		});
 
-		$('[node-type=cn]').bind('touchstart', function() {
+		$('[node-type=cn]').bind('click', function() {
 			myspeaker.set({
 				lang: 'zh-CN'
 			});
+            $(this).parent().find('button').removeClass('active');
+	        $(this).addClass('active');
 		});
-		$('[node-type=hk]').bind('touchstart', function() {
+		$('[node-type=hk]').bind('click', function() {
 			myspeaker.set({
 				lang: 'zh-HK'
 			});
+            $(this).parent().find('button').removeClass('active');
+	        $(this).addClass('active');
 		});
-		$('[node-type=tw]').bind('touchstart', function() {
+		$('[node-type=tw]').bind('click', function() {
 			myspeaker.set({
 				lang: 'zh-TW'
 			});
+            $(this).parent().find('button').removeClass('active');
+	        $(this).addClass('active');
 		});
 
 		function showNum() {
@@ -232,6 +268,13 @@
 
 		myspeaker.events.on('add', showNum);
 		myspeaker.events.on('end', showNum);
+        myspeaker.events.on('allend',function(){
+           $('[node-type=start]').removeClass('disabled'); 
+           $('[node-type=stop]').addClass('disabled'); 
+        });
+        window.onbeforeunload = window.onunload =  function(){
+            myspeaker.clear();            
+        };
 	}
 
 })();
