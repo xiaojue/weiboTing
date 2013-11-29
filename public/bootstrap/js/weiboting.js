@@ -236,7 +236,7 @@
 		});
 
 		contentWrap.on('click', '[node-type=add_one]', function(e) {
-			var text = $(e.target).parent().find('[node-type=text]').text();
+			var text = $(e.target).closest('li').find('[node-type=text]').text();
 			myspeaker.add(text);
 		});
 

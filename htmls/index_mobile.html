@@ -4,12 +4,16 @@
         <meta charset="utf-8">
         <title>weibo ting</title>
         <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, target-densityDpi=device-dpi">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <meta name="description" content="weiboting">
         <meta name="author" content="xiaojue">
         <link rel="shortcut icon" type="image/x-icon" href="icon/favicon.ico" />
         <link rel="apple-touch-icon" size="57x57" href="icon/touch-icon-icon-57x57-precomposed.png"/>
         <link rel="apple-touch-icon" size="72x72" href="icon/touch-icon-icon-72x72-precomposed.png"/>
         <link rel="apple-touch-icon" size="114x114" href="icon/touch-icon-icon-114x114-precomposed.png"/>
+        <link rel="apple-touch-icon-precomposed" href="icon/touch-icon-icon-72x72-precomposed.png"/>
+        <link rel="stylesheet" href="/bootstrap/css/add2home.css" type="text/css" media="screen" />
         <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <style>
             body {
@@ -51,8 +55,10 @@
                 margin-bottom:10px;
             }
             .login { 
+                margin:50px auto;
                 text-align:center;
             }
+            .center{text-align:center}
         </style>
         <div class="container">
             <% if(user){ %>
@@ -87,14 +93,15 @@
                 <p>使用微博帐号登陆</p>
             </div>
             <% } %>
-            <footer>
+            <footer class="center">
             <p>&copy; 2013-2023 weiboTing.me</p>
             </footer>
         </div>
         <script src="/bootstrap/js/jquery-1.9.1.min.js"></script>
         <script src="/bootstrap/js/bootstrap.min.js"></script>
+        <script src="/bootstrap/js/add2home.js"></script>
         <% if (user) { %>
         <script src="/bootstrap/js/weiboting.js"></script>
-        <% }  %>
+        <% } %>
     </body>
 </html>
